@@ -23,14 +23,30 @@ const ElectionCommision = ({ account }) => {
     // converting time and date in seconds
     const startInSeconds = dateToSeconds(startTime);
     const endInSeconds = dateToSeconds(endTime);
-
+    
+    const timeData={
+      startInSeconds,
+      endInSeconds
+    }
     try {
+    const res = await fetch("http://localhost:3000/api/time-verify",{
+       method:"POST",
+       headers:{
+        "content-type":"application/json"
+       },
+       body:JSON.stringify(timeData),
+    })
+    const data = await res.json()
+    if(data.message==="Time is less than 24 hours"){
       await contract.methods
         .voteTime(startInSeconds, endInSeconds)
         .send({ from: account, gas: 480000 });
-
-      toast.success("Voting Started");
+        toast.success("Voting Started");
+    }else{
+      throw new Error("Time is greater than 24 hours")
+    } 
     } catch (error) {
+      console.log(error)
       toast.error("Voting Initilization Failed");
     }
   };

@@ -14,12 +14,31 @@ const CandidateRegister = ({ account }) => {
     const gender = document.querySelector("#gender").value;
     const party = document.querySelector("#party").value;
     const age = document.querySelector("#age").value;
+    const partyData={
+      gender,
+      party
+    }
     try {
+    const res = await fetch("http://localhost:3000/api/candidate-verify",{
+       method:"POST",
+       headers:{
+        "content-type":"application/json"
+       },
+       body:JSON.stringify(partyData),
+    })
+    const data = await res.json()
+    if(data.message==="Registration Successfull"){
       await contract.methods
         .candidateRegister(name, party, age, gender)
         .send({ from: account, gas: 480000 });
       toast.success("Registration successful");
+    }else if(data.message==="Gender Value invalid"){
+       throw new Error("Gender Value invalid")
+    }else{
+      throw new Error("Party name clashes")
+    }
     } catch (error) {
+      console.error(error)
       toast.error("Registration Failed");
     }
   };

@@ -15,13 +15,30 @@ const VoterRegister = ({ account }) => {
     const name = document.querySelector("#name").value;
     const gender = document.querySelector("#gender").value;
     const age = document.querySelector("#age").value;
+
+    const voterData={
+      gender,
+    }
     try {
+    const res = await fetch("http://localhost:3000/api/voter-verify",{
+       method:"POST",
+       headers:{
+        "content-type":"application/json"
+       },
+       body:JSON.stringify(voterData),
+    })
+    const data = await res.json()
+    if(data.message==="Registration Successfull"){
       await contract.methods
         .voterRegister(name, age, gender)
         .send({ from: account, gas: 480000 });
       toast.success("Voter Registration sucessfull");
+    }else{
+      throw new Error("Gender value invalid")
+    }
     } catch (error) {
-      toast.error("Voter Already Registered");
+      console.error(error)
+      toast.error("Voter Registration Fail");
     }
   };
   return (
