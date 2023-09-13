@@ -1,4 +1,4 @@
-import {useState,useEffect,createContext} from "react";
+import { useState, useEffect, createContext } from "react";
 import PropTypes from "prop-types";
 import Web3 from "web3";
 import ABI from "./ABI.json";
@@ -14,7 +14,7 @@ const Wallet = ({ children }) => {
   useEffect(() => {
     const init = async () => {
       const web3 = new Web3("HTTP://127.0.0.1:7545");
-      const contractAddress = "0xD70Be09e94A2504410CD13b085a63c3e9eDa9EBF";
+      const contractAddress = "0xa3Aa40cEAa9AEBA0c6FB2A688ab205c057E91beb";
       //to create contract instance - abi and contract address
       const contract = new web3.eth.Contract(ABI, contractAddress);
       setState({ web3: web3, contract: contract });
@@ -23,14 +23,12 @@ const Wallet = ({ children }) => {
   }, []);
 
   return (
-    <WalletContext.Provider value={state}>
-      {children}
-    </WalletContext.Provider>
+    <WalletContext.Provider value={state}>{children}</WalletContext.Provider>
   );
 };
 
 Wallet.propTypes = {
   children: PropTypes.node.isRequired,
 };
-export {WalletContext};
+export { WalletContext };
 export default Wallet;
