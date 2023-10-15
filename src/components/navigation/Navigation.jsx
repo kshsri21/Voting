@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import "./Navigation.css";
-import ConnectedAccount from "../ConnectedAccount";
+import ConnectedAccount from "./ConnectedAccount";
 
 const Navigation = ({ account }) => {
   return (

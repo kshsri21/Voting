@@ -1,24 +1,11 @@
 import { useContext } from "react";
+import { WalletContext } from "../wallet/Wallet";
 import PropTypes from "prop-types";
-import "./Vote.css";
 import { toast } from "react-hot-toast";
+import "./Vote.css";
 
-import { WalletContext } from "../Wallet";
-const Vote = ({ account }) => {
-  const { contract } = useContext(WalletContext);
-  const submitVote = async (event) => {
-    event.preventDefault();
-    const candidateId = document.querySelector("#candidateId").value;
-    const voterId = document.querySelector("#voterId").value;
-    try {
-      await contract.methods
-        .vote(voterId, candidateId)
-        .send({ from: account, gas: 480000 });
-      toast.success("You have voted successfully");
-    } catch (error) {
-      toast.error("Vote Failed");
-    }
-  };
+const Vote = () => {
+
   return (
     <div>
       <form className="vote-form" onSubmit={submitVote}>

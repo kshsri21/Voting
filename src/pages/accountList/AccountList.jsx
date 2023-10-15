@@ -1,6 +1,6 @@
 import { useEffect, useContext, useState } from "react";
 import PropTypes from "prop-types";
-import { WalletContext } from "../../components/Wallet";
+import { WalletContext } from "../../components/wallet/Wallet";
 import Navigation from "../../components/navigation/Navigation";
 import "./AccountList.css";
 

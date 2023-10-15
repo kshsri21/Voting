@@ -1,19 +1,8 @@
 import { useState, useEffect, useContext } from "react";
-import { WalletContext } from "../Wallet";
+import { WalletContext } from "../wallet/Wallet";
 import "./CandidateDisplay.css";
 const CandidateDisplay = () => {
-  const { contract } = useContext(WalletContext);
-  const [candidates, setCandidates] = useState([]);
-  useEffect(() => {
-    const candidateInfo = async () => {
-      const candidates = await contract.methods.candidateList().call();
-      setCandidates(candidates);
-    };
-    contract && candidateInfo();
-  }, [contract]);
-  if (candidates.length === 0) {
-    return null;
-  }
+  
   return (
     <div className="table-container">
       <table className="voter-table">
@@ -25,17 +14,7 @@ const CandidateDisplay = () => {
           </tr>
         </thead>
         <tbody>
-          {candidates.length > 0 ? (
-            candidates.map((candidate) => (
-              <tr key={candidate.party}>
-                <td>{candidate.name}</td>
-                <td>{candidate.party}</td>
-                <td>{candidate.votes}</td>
-              </tr>
-            ))
-          ) : (
-            <p></p>
-          )}
+      
         </tbody>
       </table>
     </div>

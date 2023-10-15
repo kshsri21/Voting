@@ -4,7 +4,7 @@ import AccountList from "./pages/accountList/AccountList";
 import CandidateRegister from "./pages/candidateRegister/CandidateRegister";
 import ElectionCommision from "./pages/electionCommision/ElectionCommision";
 import VoterRegister from "./pages/voterRegister/VoterRegister";
-import Wallet from "./components/Wallet";
+import Wallet from "./components/wallet/Wallet";
 
 function App() {
   const [account, setAccount] = useState("");
