@@ -5,10 +5,17 @@ import { toast } from "react-hot-toast";
 import "./Vote.css";
 
 const Vote = () => {
-
+  const {contract} = useContext(WalletContext);
+  const voting = async(e)=>{
+    e.preventDefault();
+    const voterId  = document.querySelector("#voterId").value;
+    const candidateId = document.querySelector("#candidateId").value;
+    await contract.methods.vote(voterId,candidateId).send({from:account,gas:480000})
+    alert("Vote Successful")
+  }
   return (
     <div>
-      <form className="vote-form" onSubmit={submitVote}>
+      <form className="vote-form" onSubmit={voting}>
         <h1>Vote Here</h1>
         <label htmlFor="start">Voter Id:</label>
         <input type="text" id="voterId"></input>

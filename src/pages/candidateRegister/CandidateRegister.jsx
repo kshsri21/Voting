@@ -7,7 +7,17 @@ import { toast } from "react-hot-toast";
 import "./CandidateRegister.css";
 
 const CandidateRegister = ({ account }) => {
-
+  const {contract} = useContext(WalletContext);
+  const candidateRegistration = async(e)=>{
+    e.preventDefault();
+    const name  = document.querySelector("#name").value;
+    const party = document.querySelector("#party").value;
+    const age = document.querySelector("#age").value;
+    const gender = document.querySelector("#gender").value;
+    
+    await contract.methods.candidateRegister(name,party,age,gender).send({from:account,gas:480000})
+    alert("Registration Successful")
+  }
   return (
     <>
       <Navigation account={account} />
@@ -17,7 +27,7 @@ const CandidateRegister = ({ account }) => {
           <p>Make your votes count towards the voter you like</p>
           <img src="/register.png" width={300}></img>
         </div>
-        <form className="can-reg-form">
+        <form className="can-reg-form" onSubmit={candidateRegistration}>
           <h3>Register</h3>
           <label htmlFor="name">Name</label>
           <input type="text" id="name"></input>

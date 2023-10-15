@@ -9,7 +9,16 @@ import "./VoterRegister.css";
 import toast from "react-hot-toast";
 
 const VoterRegister = ({ account }) => {
-
+  const {contract} = useContext(WalletContext);
+  const voterRegistration = async(e)=>{
+    e.preventDefault();
+    const name  = document.querySelector("#name").value;
+    const age = document.querySelector("#age").value;
+    const gender = document.querySelector("#gender").value;
+    
+    await contract.methods.voterRegister(name,age,gender).send({from:account,gas:480000})
+    alert("Registration Successful")
+  }
   return (
     <>
       <Navigation account={account} />
@@ -17,7 +26,7 @@ const VoterRegister = ({ account }) => {
         <VotingStatus />
       </div>
       <div className="voter-reg-wrapper ">
-        <form className="voter-form">
+        <form className="voter-form" onSubmit={voterRegistration}>
           <h1>Register as Voter</h1>
           <label htmlFor="name">Name:</label>
           <input type="text" id="name"></input>

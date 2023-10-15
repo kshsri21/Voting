@@ -55,7 +55,7 @@
 			},
 			{
 				"internalType": "uint256",
-				"name": "_candidateId",
+				"name": "_id",
 				"type": "uint256"
 			}
 		],
