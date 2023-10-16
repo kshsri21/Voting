@@ -8,15 +8,42 @@ import { toast } from "react-hot-toast";
 const ElectionCommision = ({account}) => {
   const {contract}=useContext(WalletContext);
   const [winner,setWinner]=useState("No Winner");
+  
+  const dateToSeconds = (dateTimeString) => {
+    const date = new Date(dateTimeString);
+    return Math.floor(date.getTime() / 1000);
+  };
+
   const startVoting = async(e)=>{
     e.preventDefault()
     const startTime = document.querySelector("#start").value;
     const endTime = document.querySelector("#end").value;
-    console.log(startTime,endTime)
-    // await contract.methods.voteTime(startTime,endTime).send({from:account,gas:480000})
-    // alert("Voting Started")
-  }
+    const startTimeSeconds = dateToSeconds(startTime);
+    const endTimeSeconds = dateToSeconds(endTime);
 
+    const time ={
+      startTimeSeconds,
+      endTimeSeconds
+    }
+    try{
+      const res  = await fetch("http://localhost:3000/api/time-bound",{
+         method:"POST",
+         headers:{
+          "content-type":"application/json"
+         },
+         body:JSON.stringify(time)
+      })
+      const data = await res.json();
+      if(data.message==="Voting Timer Started"){
+        await contract.methods.voteTime(startTimeSeconds,endTimeSeconds).send({from:account,gas:480000})
+        alert("Voting Started")
+      }else{
+        alert("Voting Time Must Be Less Than 24 hours")
+      }
+    }catch(error){
+       console.error(error)
+    }
+  }
   useEffect(()=>{
     const winnerInfo = async()=>{
       const winner = await contract.methods.winner().call();
