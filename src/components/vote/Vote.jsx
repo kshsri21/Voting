@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { toast } from "react-hot-toast";
 import "./Vote.css";
 
-const Vote = () => {
+const Vote = ({account}) => {
   const {contract} = useContext(WalletContext);
   const voting = async(e)=>{
     e.preventDefault();

@@ -47,7 +47,12 @@ const ElectionCommision = ({account}) => {
   useEffect(()=>{
     const winnerInfo = async()=>{
       const winner = await contract.methods.winner().call();
-      setWinner(winner);
+      if(winner==="0x0000000000000000000000000000000000000000"){
+        setWinner("No Winner")
+      }else{
+        setWinner(winner);
+      }
+      
     }
     contract && winnerInfo()
   },[contract])
