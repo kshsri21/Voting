@@ -7,6 +7,7 @@ import { toast } from "react-hot-toast";
 import "./CandidateRegister.css";
 
 const CandidateRegister = ({ account }) => {
+  console.log(account)
   const {contract} = useContext(WalletContext);
   const candidateRegistration = async(e)=>{
     e.preventDefault();
@@ -29,10 +30,10 @@ const CandidateRegister = ({ account }) => {
       })
       const data = await res.json();
       if(data.message==="Gender and Party Are Valid"){
-        await contract.methods.candidateRegister(name,party,age,gender).send({from:account,gas:480000})
-        alert("Registration Successful")
+        await contract.methods.candidateRegister(name,party,age,gender).send({from:account})
+        toast.success("Registration Successful")
       }else{
-        alert("Registration Not Successfull")
+        toast.error("Registration Not Successfull")
       }
     }catch(error){
        console.error(error)

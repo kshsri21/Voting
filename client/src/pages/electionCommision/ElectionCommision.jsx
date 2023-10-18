@@ -36,9 +36,9 @@ const ElectionCommision = ({account}) => {
       const data = await res.json();
       if(data.message==="Voting Timer Started"){
         await contract.methods.voteTime(startTimeSeconds,endTimeSeconds).send({from:account,gas:480000})
-        alert("Voting Started")
+        toast.success("Voting Started")
       }else{
-        alert("Voting Time Must Be Less Than 24 hours")
+        toast.error("Voting Time Must Be Less Than 24 hours")
       }
     }catch(error){
        console.error(error)

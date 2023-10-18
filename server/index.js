@@ -6,8 +6,8 @@ const {Web3} = require("web3");
 const ABI = require("./ABI.json")
 
 app.use(express.json())
-const web3 = new Web3("HTTP://127.0.0.1:7545")
-const contractAddress = "0x911d0c60E5Ec6e93E8aE7125313D8f9F4CdF28d1";
+const web3 = new Web3("https://eth-sepolia.g.alchemy.com/v2/bg7oQilXzGhvU9Ra0oHAxTCIuv_FJna-")
+const contractAddress = "0xBb4629df0A6735be6e75786915794B93008CD289";
 const contract = new web3.eth.Contract(ABI,contractAddress);
 
 const genderVerification = (gender)=>{

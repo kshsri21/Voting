@@ -30,9 +30,9 @@ const VoterRegister = ({ account }) => {
       const data = await res.json();
       if(data.message==="Gender Valid"){
         await contract.methods.voterRegister(name,age,gender).send({from:account,gas:480000})
-        alert("Registration Successful")
+        toast.success("Registration Successful")
       }else{
-        alert("Registration Not Successfull")
+        toast.error("Registration Not Successfull")
       }
     }catch(error){
        console.error(error)

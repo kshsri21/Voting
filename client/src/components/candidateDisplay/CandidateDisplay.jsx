@@ -23,7 +23,7 @@ const CandidateDisplay = () => {
           </tr>
         </thead>
         <tbody>
-        {list?(list.map((candidate)=>{
+        {list.length>0?(list.map((candidate)=>{
          return (<tr key={candidate.candidateId}>
           <td>{candidate.name}</td>
           <td>{candidate.party}</td>

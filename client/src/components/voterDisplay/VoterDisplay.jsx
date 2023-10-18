@@ -25,7 +25,7 @@ useEffect(() => {
           </tr>
         </thead>
         <tbody>
-        {voterlist?(voterlist.map((voter) => {
+        {voterlist.length>0?(voterlist.map((voter) => {
           return (
             <tr key={voter.voterId}>
               <td>{voter.name}</td>

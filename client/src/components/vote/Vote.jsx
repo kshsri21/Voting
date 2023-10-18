@@ -10,8 +10,12 @@ const Vote = ({account}) => {
     e.preventDefault();
     const voterId  = document.querySelector("#voterId").value;
     const candidateId = document.querySelector("#candidateId").value;
-    await contract.methods.vote(voterId,candidateId).send({from:account,gas:480000})
-    alert("Vote Successful")
+    try{
+      await contract.methods.vote(voterId,candidateId).send({from:account,gas:480000})
+      toast.success("Vote Successful")
+    }catch (error) {
+      toast.error("Vote Failed");
+    }
   }
   return (
     <div>
