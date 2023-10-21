@@ -26,7 +26,7 @@ const ElectionCommision = ({account}) => {
       endTimeSeconds
     }
     try{
-      const res  = await fetch("http://localhost:3000/api/time-bound",{
+      const res  = await fetch("https://vote-server-2.onrender.com/api/time-bound",{
          method:"POST",
          headers:{
           "content-type":"application/json"
@@ -35,13 +35,13 @@ const ElectionCommision = ({account}) => {
       })
       const data = await res.json();
       if(data.message==="Voting Timer Started"){
-        await contract.methods.voteTime(startTimeSeconds,endTimeSeconds).send({from:account,gas:480000})
-        alert("Voting Started")
+        await contract.methods.voteTime(startTimeSeconds,endTimeSeconds).send({from:account})
+        toast.success("Voting Started")
       }else{
-        alert("Voting Time Must Be Less Than 24 hours")
+        toast.error("Voting Time Must Be Less Than 24 hours")
       }
     }catch(error){
-       console.error(error)
+       toast.error(error)
     }
   }
   useEffect(()=>{

@@ -20,7 +20,7 @@ const CandidateRegister = ({ account }) => {
       gender
     }
     try{
-      const res  = await fetch("http://localhost:3000/api/candidate-verification",{
+      const res  = await fetch("https://vote-server-2.onrender.com/api/candidate-verification",{
          method:"POST",
          headers:{
           "content-type":"application/json"
@@ -29,10 +29,10 @@ const CandidateRegister = ({ account }) => {
       })
       const data = await res.json();
       if(data.message==="Gender and Party Are Valid"){
-        await contract.methods.candidateRegister(name,party,age,gender).send({from:account,gas:480000})
-        alert("Registration Successful")
+        await contract.methods.candidateRegister(name,party,age,gender).send({from:account})
+        toast.success("Registration Successful")
       }else{
-        alert("Registration Not Successfull")
+        toast.error("Registration Not Successfull")
       }
     }catch(error){
        console.error(error)
